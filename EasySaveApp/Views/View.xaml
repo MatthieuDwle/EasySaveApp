@@ -1,0 +1,48 @@
+﻿<Window x:Class="EasySaveApp.Views.View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EasySaveApp.Views"
+        mc:Ignorable="d"
+        Height="450" Width="700" Background="{StaticResource CustomBlack}"
+        Title="Nav" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="NavigationContentStyle" TargetType="ContentControl">
+            <Setter Property="ContentTemplate" Value="{StaticResource HomeViewTemplate}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=Navigation, Path=SelectedItem}"
+                             Value="Execute">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ExecuteViewTemplate}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=Navigation, Path=SelectedItem}"
+                             Value="Create">
+                    <Setter Property="ContentTemplate" Value="{StaticResource CreateViewTemplate}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=Navigation, Path=SelectedItem}"
+                             Value="Logs">
+                    <Setter Property="ContentTemplate" Value="{StaticResource LogsViewTemplate}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=Navigation, Path=SelectedItem}"
+                             Value="Parameters">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ParametersViewTemplate}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="Navigation"
+                 Style="{StaticResource NavigationListBoxStyle}"
+                 ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
+                 ItemTemplate="{DynamicResource NavigationDataTemplate}"
+                 ItemsSource="{StaticResource NavigationMenuItems}"
+                 />
+        <ContentControl Grid.Column="1" Style="{StaticResource NavigationContentStyle}"/>
+    </Grid>
+</Window>
